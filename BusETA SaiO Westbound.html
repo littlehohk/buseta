@@ -160,7 +160,7 @@ function render(results) {
     if (!r.data.length) {
       return `<div class="card"><div class="card-top"><div class="route-wrap"><div class="route">${r.route}</div>${badge}</div></div><div class="error">No buses currently in service</div></div>`;
     }
-    const dest = r.data[0].dest_en || "";
+    const dest = r.data[0].dest_tc || "";
     const pills = r.data.slice(0, 3).map(d => {
       const mins = minutesUntil(d.eta);
       const cls = urgencyClass(mins);
