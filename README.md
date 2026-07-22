@@ -1,2 +1,2 @@
 # buseta
-ETA for westbound (mainly) buses at stops near Tai Shui Hang 
+Bus ETA for multiple stops near Tai Shui Hang 
