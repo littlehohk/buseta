@@ -152,7 +152,7 @@ function render(results) {
       return `<div class="card"><div class="card-top"><div class="route">${r.route}</div></div><div class="error">${r.error}</div></div>`;
     }
     if (!r.data.length) {
-      return `<div class="card"><div class="card-top"><div class="route">${r.route}</div></div><div class="error">No buses currently in service</div></div>`;
+      return `<div class="card"><div class="card-top"><div class="route">${r.route}</div></div><div class="error">暫時沒有預定班次</div></div>`;
     }
     const dest = r.data[0].dest_tc || "";
     const pills = r.data.slice(0, 3).map(d => {
