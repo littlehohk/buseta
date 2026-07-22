@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>Bus ETA SaiO Westbound</title>
+<title>巴士(西行)到站預報(富安花園巴士總站)</title>
 <style>
   :root {
     --bg: #0b0d10;
@@ -104,7 +104,7 @@
 </head>
 <body>
 <header>
-  <h1>🚌 Bus ETA SaiO Westbound</h1>
+  <h1>🚌 巴士(西行)到站預報(富安花園巴士總站)</h1>
 </header>
 <div id="updated">Loading…</div>
 <button class="refresh-btn" onclick="loadAll()">Refresh now</button>
@@ -112,12 +112,19 @@
 
 <script>
 const ROUTES = [
-  { route: "299X", operator: "kmb", url: "https://data.etabus.gov.hk/v1/transport/kmb/eta/5D86C919F15C0611/299X/1" },
-  { route: "99",   operator: "kmb", url: "https://data.etabus.gov.hk/v1/transport/kmb/eta/5D86C919F15C0611/99/1" },
-  { route: "287",  operator: "kmb", url: "https://data.etabus.gov.hk/v1/transport/kmb/eta/5D86C919F15C0611/287/1" },
-  { route: "580",  operator: "ctb", url: "https://rt.data.gov.hk/v2/transport/citybus/eta/CTB/003834/580" },
-  { route: "581",  operator: "ctb", url: "https://rt.data.gov.hk/v2/transport/citybus/eta/CTB/003834/581" },
-  { route: "582",  operator: "ctb", url: "https://rt.data.gov.hk/v2/transport/citybus/eta/CTB/003834/582" },
+  { route: "43X", url: "https://data.etabus.gov.hk/v1/transport/kmb/eta/D2C5873747260F13/43X/1" },
+  { route: "81C", url: "https://data.etabus.gov.hk/v1/transport/kmb/eta/F508350699744D24/81C/1" },
+  { route: "84M", url: "https://data.etabus.gov.hk/v1/transport/kmb/eta/36D7B643B6B5680A/84M/2" },
+  { route: "85K", url: "https://data.etabus.gov.hk/v1/transport/kmb/eta/C81CBD93FB2B5C60/85K/1" },
+  { route: "89C", url: "https://data.etabus.gov.hk/v1/transport/kmb/eta/F508350699744D24/89C/1" },
+  { route: "289K", url: "https://data.etabus.gov.hk/v1/transport/kmb/eta/9EAC85DD5495DB6F/289K/2" },
+  { route: "299X", url: "https://data.etabus.gov.hk/v1/transport/kmb/eta/1CF4AE2F7045B848/299X/1" },
+  { route: "A41P", url: "https://data.etabus.gov.hk/v1/transport/kmb/eta/FBE33E1EA7BA6051/A41P/1" },
+  { route: "281X", url: "https://data.etabus.gov.hk/v1/transport/kmb/eta/F508350699744D24/281X/1" },
+  { route: "680B", url: "https://data.etabus.gov.hk/v1/transport/kmb/eta/46F034381CE08F9C/680B/1" },
+  { route: "681P", url: "https://data.etabus.gov.hk/v1/transport/kmb/eta/46F034381CE08F9C/681P/1" },
+  { route: "682A", url: "https://rt.data.gov.hk/v2/transport/citybus/eta/CTB/002027/682A" },
+  { route: "981P", url: "https://data.etabus.gov.hk/v1/transport/kmb/eta/46F034381CE08F9C/981P/1" },
 ];
 
 function minutesUntil(isoString) {
@@ -158,13 +165,13 @@ function render(results) {
       return `<div class="card"><div class="card-top"><div class="route-wrap"><div class="route">${r.route}</div>${badge}</div></div><div class="error">${r.error}</div></div>`;
     }
     if (!r.data.length) {
-      return `<div class="card"><div class="card-top"><div class="route-wrap"><div class="route">${r.route}</div>${badge}</div></div><div class="error">No buses currently in service</div></div>`;
+      return `<div class="card"><div class="card-top"><div class="route-wrap"><div class="route">${r.route}</div>${badge}</div></div><div class="error">暫時沒有預定班次</div></div>`;
     }
     const dest = r.data[0].dest_tc || "";
     const pills = r.data.slice(0, 3).map(d => {
       const mins = minutesUntil(d.eta);
       const cls = urgencyClass(mins);
-      const label = mins === 0 ? "Due" : mins + " min";
+      const label = mins === 0 ? "到站" : mins + " 分鐘";
       return `<div class="eta-pill ${cls}">${label}<span>${new Date(d.eta).toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"})}</span></div>`;
     }).join("");
     return `<div class="card">
