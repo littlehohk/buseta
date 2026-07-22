@@ -158,7 +158,7 @@ function render(results) {
     const pills = r.data.slice(0, 3).map(d => {
       const mins = minutesUntil(d.eta);
       const cls = urgencyClass(mins);
-      const label = mins === 0 ? "Due" : mins + " min";
+      const label = mins === 0 ? "到站" : mins + " 分";
       return `<div class="eta-pill ${cls}">${label}<span>${new Date(d.eta).toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"})}</span></div>`;
     }).join("");
     return `<div class="card">
