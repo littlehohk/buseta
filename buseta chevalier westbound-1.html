@@ -214,7 +214,7 @@ function render(results) {
       // data.gov.hk's KMB feed tends to run ~1 min later than the official KMB app; adjust to match.
       const mins = (r.operator === "kmb" || !r.operator) ? Math.max(0, rawMins - 1) : rawMins;
       const cls = urgencyClass(mins);
-      const label = mins === 0 ? "到站" : mins + " 分鐘";
+      const label = mins === 0 ? "到站" : mins + " min";
       return `<div class="eta-pill ${cls}">${label}<span>${new Date(d.eta).toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"})}</span></div>`;
     }).join("");
     return `<div class="card">
